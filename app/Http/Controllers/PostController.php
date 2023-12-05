@@ -40,11 +40,13 @@ class PostController extends Controller
         ]);
         $user = Auth()->user();
         $userid = $user->id;
+        $username = $user->name;
         
         
         $p = new Post;
         $p->title= $validatedData['title'];
         $p->description= $validatedData['description'];
+        $p->user_name=$username;
         $p->user_id=$userid;
         if($request->hasfile('post_image'))
         {
