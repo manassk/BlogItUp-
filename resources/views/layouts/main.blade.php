@@ -29,7 +29,8 @@
 
             <!-- Page Content -->
             <main>
-                @yield('contents');
+                
+                @yield('contents')
             </main>
         </div>
     </body>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -13,7 +14,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        return view('posts.index');
+        $posts = Post::all();
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -22,6 +24,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('posts.create');
     }
 
     /**
@@ -30,6 +33,32 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'title' => 'required|max:200',
+            'description' => 'required|max:500',
+            'post_image' => 'required|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx|max:1024',
+        ]);
+        $user = Auth()->user();
+        $userid = $user->id;
+        
+        
+        $p = new Post;
+        $p->title= $validatedData['title'];
+        $p->description= $validatedData['description'];
+        $p->user_id=$userid;
+        if($request->hasfile('post_image'))
+        {
+            $file = $request->file('post_image');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extenstion;
+            $file->move('uploads/images/', $filename);
+            $p->post_image = $filename;
+        }
+        
+        $p->save();
+
+        session()->flash('message','A course was created');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -38,6 +67,9 @@ class PostController extends Controller
     public function show(string $id)
     {
         //
+        $post = Post::findOrFail($id);
+        
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
