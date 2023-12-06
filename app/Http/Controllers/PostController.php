@@ -35,7 +35,7 @@ class PostController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|max:200',
-            'description' => 'required|max:500',
+            'description' => 'required|max:5000',
             'post_image' => 'required|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx|max:1024',
         ]);
         $user = Auth()->user();
