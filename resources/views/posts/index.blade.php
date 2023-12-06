@@ -77,14 +77,14 @@ header {
 <header>
     <h1>Feed</h1>
 </header>
-
+    
   <p><a href="{{route('posts.create')}}">Create a post</a></p>
   
   <div class= "container">
     <ul class="content-feed">
         @foreach ($posts as $post)
             <li class="post-card">
-                <h1 class="heading">{{$post->user_name}} <span class="time">Posted at: {{$post->created_at}}</span></h1>
+                <h1 class="heading"><a href="{{ route('posts.userPost', ['id' => $post->id])}}">{{$post->user_name}} </a><span class="time">Posted at: {{$post->created_at}}</span></h1>
                 <img src="{{ asset('uploads/images/'.$post->post_image) }}" alt="image" class="card-image">
                 
                 <a href="{{ route('posts.show', ['id' => $post->id]) }}" class="card-title">{{ $post->title }}</a>

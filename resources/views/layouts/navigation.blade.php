@@ -31,8 +31,8 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile Settings') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('posts.index')">
-                            {{ __('Posts') }}
+                        <x-dropdown-link :href="route('posts.userPost')">
+                            {{ __('My Posts') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->

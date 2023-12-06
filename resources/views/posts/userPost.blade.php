@@ -76,10 +76,7 @@ header {
 </style>
 <header>
     <h1>Feed</h1>
-</header>
-
-  <p><a href="{{route('posts.create')}}">Create a post</a></p>
-  
+</header>  
   <div class= "container">
     <ul class="content-feed">
         @foreach ($posts as $post)
