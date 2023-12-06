@@ -2,7 +2,7 @@
 @section('contents') 
 <style>
 .blog-card {
-    max-width: 600px;
+    max-width: 500px;
     margin: 20px auto;
     background-color: #ffffff;
     border-radius: 8px;

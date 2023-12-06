@@ -48,6 +48,7 @@ class PostController extends Controller
         $p->description= $validatedData['description'];
         $p->user_name=$username;
         $p->user_id=$userid;
+        
         if($request->hasfile('post_image'))
         {
             $file = $request->file('post_image');
@@ -97,4 +98,5 @@ class PostController extends Controller
     {
         //
     }
+    
 }
