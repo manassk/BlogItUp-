@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('contents')
+
 <style>
 body {
     font-family: 'Arial', sans-serif;
@@ -28,7 +29,6 @@ header {
     margin: 20px auto;
     display: flex;
     flex-direction: row;
-  
     flex-wrap: wrap;
     gap: 30px;
 }
@@ -73,12 +73,27 @@ header {
 .card-title:hover {
     background-color: #f0f0f0;
 }
+.create-post-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3490dc;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition:  0.3s;
+        margin-top:5px;
+        margin-left:45.7%;
+    }
+
+    .create-post-btn:hover {
+        background-color: #2779bd;
+    }
 </style>
 <header>
     <h1>Feed</h1>
 </header>
-    
-  <p><a href="{{route('posts.create')}}">Create a post</a></p>
+<p><a href="{{route('posts.create')}}" class="create-post-btn">Create a post</a></p>
+  
   
   <div class= "container">
     <ul class="content-feed">
