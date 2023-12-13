@@ -31,6 +31,7 @@
             <main>
                 
                 @yield('contents')
+                
             </main>
         </div>
     </body>

@@ -110,6 +110,7 @@ a:hover {
     <a href="{{route('posts.index')}}">cancel</a>
 </form>
 </div>
+
   
   
 @endsection

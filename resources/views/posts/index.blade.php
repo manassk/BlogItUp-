@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('contents')
 
+
 <style>
 body {
     font-family: 'Arial', sans-serif;
@@ -20,8 +21,7 @@ header {
 .container{
     display: flex;
     flex-direction: column;
-    margin-left: 5px;
-
+    margin-left: 30px;   
 }
 
 .content-feed {
@@ -85,9 +85,39 @@ header {
         margin-left:45.7%;
     }
 
-    .create-post-btn:hover {
+.create-post-btn:hover {
         background-color: #2779bd;
     }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom:10px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    margin-right: 5px;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 </style>
 <header>
     <h1>Feed</h1>
@@ -101,11 +131,12 @@ header {
             <li class="post-card">
                 <h1 class="heading"><a href="{{ route('posts.userPost', ['id' => $post->id])}}">{{$post->user_name}} </a><span class="time">Posted at: {{$post->created_at}}</span></h1>
                 <img src="{{ asset('uploads/images/'.$post->post_image) }}" alt="image" class="card-image">
-                
                 <a href="{{ route('posts.show', ['id' => $post->id]) }}" class="card-title">{{ $post->title }}</a>
             </li>
         @endforeach
     </ul>
   </div>
+  <div class="pagination-container">{{ $posts->links() }}</div>
+  
   
 @endsection
