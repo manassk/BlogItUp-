@@ -35,7 +35,23 @@
 .description {
     color: #555;
 }
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 8px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
 
 
 </style>
@@ -46,6 +62,8 @@
         
         <p class="description">Description: {{$post->description}}</p>
     </div>
+    <a href="{{ url('edit/'.$post->id) }}" class="btn btn-success">Edit</a>
+    <a href="" class="btn btn-danger">Delete</a>
 </div>
   
   

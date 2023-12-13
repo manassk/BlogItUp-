@@ -36,8 +36,10 @@ Route::middleware('auth')->group(function () {
         ->name('posts.store');
     Route::get('/posts/{id}', [PostController::class , 'show'])
         ->name('posts.show');
-        Route::get('/user/posts', [userPostController::class , 'index'])
+    Route::get('/user/posts', [userPostController::class , 'index'])
         ->name('posts.userPost');
+    Route::get('edit/{id}', [PostController::class , 'edit']);
+    Route::put('update-data/{id}',[PostController::class , 'update']);
 });
 
 require __DIR__.'/auth.php';
