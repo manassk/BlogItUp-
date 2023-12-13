@@ -63,7 +63,12 @@
         <p class="description">Description: {{$post->description}}</p>
     </div>
     <a href="{{ url('edit/'.$post->id) }}" class="btn btn-success">Edit</a>
-    <a href="" class="btn btn-danger">Delete</a>
+    <form method="post" action="{{ url('delete/'.$post->id) }}" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+    </form>
+    
 </div>
   
   
