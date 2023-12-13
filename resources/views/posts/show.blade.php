@@ -35,6 +35,11 @@
 .description {
     color: #555;
 }
+.views{
+    color:#337CCF;
+    font-style:italic;
+    font-size:13px;
+}
 .btn {
     display: inline-block;
     padding: 8px 16px;
@@ -48,6 +53,9 @@
 .btn-success {
     background-color: #28a745;
 }
+.back-btn {
+    background-color: #337CCF;
+}
 
 .btn-danger {
     background-color: #dc3545;
@@ -58,9 +66,10 @@
 <div class="blog-card">
     <img src="{{ asset('uploads/images/'.$post->post_image)}}" alt="image" class="card-image">
     <div class="card-content">
+        <p class="views">Views: {{ $post->views }}</p>
         <p class="user"><i>{{$post->user_name}} : </i> {{$post->title}}</p>
-        
         <p class="description">Description: {{$post->description}}</p>
+        
     </div>
     <a href="{{ url('edit/'.$post->id) }}" class="btn btn-success">Edit</a>
     <form method="post" action="{{ url('delete/'.$post->id) }}" style="display: inline;">
@@ -68,7 +77,7 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
     </form>
-    
+    <a href="{{ route('posts.index') }}" class="btn back-btn">Back</a>
 </div>
   
   

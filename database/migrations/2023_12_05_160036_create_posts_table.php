@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("post_image");
             $table->string("user_name");
             $table->unsignedBigInteger('user_id'); 
+            $table->unsignedBigInteger('views')->default(0); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamps();
         });

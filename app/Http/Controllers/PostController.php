@@ -72,7 +72,7 @@ class PostController extends Controller
     {
         //
         $post = Post::findOrFail($id);
-        
+        $post->increment('views');
         return view('posts.show', ['post' => $post]);
     }
 
