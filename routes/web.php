@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments/{postId}', [CommentController::class , 'store'])
     ->name('comments.store');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{notification}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 });
 
 require __DIR__.'/auth.php';

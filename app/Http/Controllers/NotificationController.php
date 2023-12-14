@@ -18,7 +18,13 @@ class NotificationController extends Controller
             'notifications' => $user->unreadNotifications,
         ]);
     }
+    public function markAsRead($id)
+    {
+        $notification = auth()->user()->unreadNotifications()->findOrFail($id);
+        $notification->markAsRead();
 
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      */
