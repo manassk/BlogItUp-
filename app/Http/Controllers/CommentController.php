@@ -63,6 +63,9 @@ class CommentController extends Controller
         if ($postOwner) {
             Notification::send($postOwner, new CommentNotification($username, $postId));
         }
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'comment' => $post->comment]);
+        }
         return redirect()->route('posts.show', ['id' => $postId]);
     }
 

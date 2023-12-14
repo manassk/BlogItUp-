@@ -137,32 +137,59 @@ h1 {
     </form>
     <a href="{{ route('posts.index') }}" class="btn back-btn">Back</a>
 </div>
-<div class= "container">
-<h1>Comments:</h1>
-<div class="comment-section">
-    <ul class="content-feed">
-        
-        @foreach ($comments as $comment)
-        <div class="comment">
-            <li class="post-card">
-
-            <div class="comment-content">
-                    <div class="comment-username">{{ $comment->user->name }}</div>
-                    <div class="comment-text">{{ $comment->comment }}</div>
+<div class="container">
+    <h1>Comments:</h1>
+    <div class="comment-section">
+        <ul class="content-feed" id="comment-list">
+            @foreach ($comments as $comment)
+                <div class="comment">
+                    <li class="post-card">
+                        <div class="comment-content">
+                            <div class="comment-username">{{ $comment->user->name }}</div>
+                            <div class="comment-text">{{ $comment->comment }}</div>
+                        </div>
+                    </li>
                 </div>
-            </div>
-        @endforeach
-    </ul>
-  </div>
+            @endforeach
+        </ul>
+    </div>
 
-  
-<form action="{{route('comments.store', ['postId' => $post->id])}}" method="POST" class="comment-form">
-                @csrf
-
-                    <label for="comment" class="form-label">Comment: </label>
-                    <input type="text" class="comment-input" name="comment" placeholder="Write a comment">
-                    <button type="submit" class="comment-btn">Comment</button>
-            </form>
-        </div>
+    <form id="comment-form">
+        @csrf
+        <label for="comment" class="form-label">Comment: </label>
+        <input type="text" class="comment-input" name="comment" id="comment" placeholder="Write a comment">
+        <button type="button" class="comment-btn" id="submit-comment">Comment</button>
+    </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#submit-comment').click(function () {
+            var comment = $('#comment').val();
+            if (comment !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('comments.store', ['postId' => $post->id]) }}',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'comment': comment
+                    },
+                    success: function (data) {
+                        // Update the comment list with the new comment
+                        $('#comment-list').append('<div class="comment"><li class="post-card"><div class="comment-content"><div class="comment-username">{{ Auth::user()->name }}</div><div class="comment-text">' + comment + '</div></div></li></div>');
+                        // Clear the input field
+                        $('#comment').val('');
+                    },
+                    error: function (data) {
+                        console.log('Ajax request error:', data);
+                    }
+                });
+            }
+        });
+
+        // Prevent form submission
+        
+    });
+</script>
 @endsection
