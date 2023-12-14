@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -12,6 +15,10 @@ class CommentController extends Controller
     public function index()
     {
         //
+        $comments = Comment::all();
+        
+        return view('courses.show', ['comments' => $comments]);
+
     }
 
     /**
@@ -25,9 +32,25 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $postId)
     {
         //
+        $validatedData = $request->validate([
+            'comment' => 'required|max:200',
+        ]);
+
+        $user = Auth()->user();
+        $userid = $user->id;
+        $username = $user->name;
+        
+        
+        
+        $c = new Comment;
+        $c->comment= $validatedData['comment'];
+        $c->user_id=$userid;
+        $c->post_id = $postId;
+        $c->save();
+        return redirect()->route('posts.show', ['id' => $postId]);
     }
 
     /**
@@ -36,6 +59,9 @@ class CommentController extends Controller
     public function show(string $id)
     {
         //
+        $comment = Comment::findOrFail($id);
+        
+        return view('courses.show', ['comment' => $comment]);
     }
 
     /**

@@ -1,6 +1,60 @@
 @extends('layouts.main')  
 @section('contents') 
 <style>
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    .comment-section {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .comment {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+    }
+
+    .comment-content {
+        flex-grow: 1;
+    }
+
+    .comment-username {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .comment-text {
+        color: #333;
+    }
+
+    .comment-form {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .comment-input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .comment-btn {
+        padding: 10px;
+        background-color: #337CCF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 .blog-card {
     max-width: 500px;
     margin: 20px auto;
@@ -61,7 +115,11 @@
     background-color: #dc3545;
 }
 
-
+h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px;
+    }
 </style>
 <div class="blog-card">
     <img src="{{ asset('uploads/images/'.$post->post_image)}}" alt="image" class="card-image">
@@ -79,6 +137,32 @@
     </form>
     <a href="{{ route('posts.index') }}" class="btn back-btn">Back</a>
 </div>
+<div class= "container">
+<h1>Comments:</h1>
+<div class="comment-section">
+    <ul class="content-feed">
+        
+        @foreach ($comments as $comment)
+        <div class="comment">
+            <li class="post-card">
+
+            <div class="comment-content">
+                    <div class="comment-username">{{ $post->user_name }}</div>
+                    <div class="comment-text">{{ $comment->comment }}</div>
+                </div>
+            </div>
+        @endforeach
+    </ul>
+  </div>
+
   
-  
+<form action="{{route('comments.store', ['postId' => $post->id])}}" method="POST" class="comment-form">
+                @csrf
+
+                    <label for="comment" class="form-label">Comment: </label>
+                    <input type="text" class="comment-input" name="comment" placeholder="Write a comment">
+                    <button type="submit" class="comment-btn">Comment</button>
+            </form>
+        </div>
+</div>
 @endsection

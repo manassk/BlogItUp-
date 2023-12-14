@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -73,7 +74,8 @@ class PostController extends Controller
         //
         $post = Post::findOrFail($id);
         $post->increment('views');
-        return view('posts.show', ['post' => $post]);
+        $comments = Comment::where('post_id', $post->id)->get();
+        return view('posts.show', ['post' => $post, 'comments' => $comments]);
     }
 
     /**

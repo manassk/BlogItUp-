@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\userPostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('edit/{id}', [PostController::class , 'edit']);
     Route::put('update-data/{id}',[PostController::class , 'update']);
     Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::post('/comments/{postId}', [CommentController::class , 'store'])
+    ->name('comments.store');
 });
 
 require __DIR__.'/auth.php';
