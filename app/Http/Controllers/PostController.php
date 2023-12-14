@@ -93,6 +93,12 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $post = Post::find($id);
+        if ($post->user_id !== auth()->user()->id){
+        return redirect()->back()->with('error', 'You are not authorized to edit this post.');
+    // or redirect, or whatever action 
+        }
+        else{
         $validatedData = $request->validate([
             'title' => 'required|max:200',
             'description' => 'required|max:5000',
@@ -126,6 +132,7 @@ class PostController extends Controller
 
         session()->flash('message','A course was created');
         return redirect()->route('posts.show', ['id' => $post->id]);
+    }
     }
 
     /**

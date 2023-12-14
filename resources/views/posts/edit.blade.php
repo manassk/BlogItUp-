@@ -101,6 +101,11 @@ a:hover {
 		            </p>
         </div>
        @endif 
+        @if (session('error'))
+            <div class="alert alert-success">
+            {{ session('error') }}
+            </div>
+          @endif
     <ul >
         <li><label for="title">Title</label><input type="text" id="title" name="title" value = "{{$post->title}}" placeholder = "Enter title here..."/> </li>
         <li><label for="description">Description</label><textarea name="description"  id="description"  >{{$post->description}}</textarea></li>
