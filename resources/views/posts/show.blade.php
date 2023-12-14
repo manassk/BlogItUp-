@@ -147,7 +147,7 @@ h1 {
             <li class="post-card">
 
             <div class="comment-content">
-                    <div class="comment-username">{{ $post->user_name }}</div>
+                    <div class="comment-username">{{ $comment->user->name }}</div>
                     <div class="comment-text">{{ $comment->comment }}</div>
                 </div>
             </div>
