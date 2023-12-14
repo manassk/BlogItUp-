@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Notifications\CommentNotification;
+use Illuminate\Support\Facades\Notification;
 
 class CommentController extends Controller
 {
@@ -27,6 +29,12 @@ class CommentController extends Controller
     public function create()
     {
         //
+    }
+    public function notify()
+    {
+        //
+        $user = User::first();
+        auth()->user()->notify(new CommentNotification($user));
     }
 
     /**
@@ -50,6 +58,11 @@ class CommentController extends Controller
         $c->user_id=$userid;
         $c->post_id = $postId;
         $c->save();
+        $post = Post::find($postId);
+        $postOwner = $post->user;
+        if ($postOwner) {
+            Notification::send($postOwner, new CommentNotification($username, $postId));
+        }
         return redirect()->route('posts.show', ['id' => $postId]);
     }
 

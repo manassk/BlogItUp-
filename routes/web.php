@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\userPostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/comments/{postId}', [CommentController::class , 'store'])
     ->name('comments.store');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 });
 
 require __DIR__.'/auth.php';
